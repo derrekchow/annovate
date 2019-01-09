@@ -840,11 +840,6 @@
             });
             this.viewer.hide().on("edit", this.onEditAnnotation).on("delete", this.onDeleteAnnotation).addField({
                 load: function(field, annotation) {
-                    if (annotation.text) {
-                        $(field).html(Util.escape(annotation.text))
-                    } else {
-                        $(field).html("<i>" + _t("No Comment") + "</i>")
-                    }
                     return _this.publish("annotationViewerTextField", [field, annotation])
                 }
             }).element.appendTo(this.wrapper).bind({
@@ -1360,6 +1355,10 @@
         Editor.prototype.events = {
             "form submit": "submit",
             ".annotator-save click": "submit",
+            ".annotator-tag click": [
+                "submit",
+                "hide"
+            ],
             ".annotator-cancel click": "hide",
             ".annotator-cancel mouseover": "onCancelButtonMouseover",
             "textarea keydown": "processKeypress"
@@ -1477,6 +1476,9 @@
                 return this.submit()
             }
         };
+        Editor.prototype.onTagClick = function() {
+            t
+        }
         Editor.prototype.onCancelButtonMouseover = function() {
             return this.element.find("." + this.classes.focus).removeClass(this.classes.focus)
         };
@@ -2840,7 +2842,7 @@
                 return field.addClass("annotator-tags").html(function() {
                     var string;
                     return string = $.map(annotation.tags, function(tag) {
-                        return '<span class="annotator-tag">' + Annotator.Util.escape(tag) + "</span>"
+                        return '<button class="annotator-tag">' + Annotator.Util.escape(tag) + "</button>"
                     }).join(" ")
                 })
             } else {
