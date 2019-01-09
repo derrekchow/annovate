@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+
+	<body id="content">
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+		Hello this is a test.
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+		<script src='annotator-full.js'></script>
+		<link rel='stylesheet' href='annotator.min.css'>
+		<script>
+			jQuery.fn.addBack = jQuery.fn.andSelf;
+			$(document.body).annotator().annotator('addPlugin', 'Tags');
+		</script>
+	</body>
+</html>
