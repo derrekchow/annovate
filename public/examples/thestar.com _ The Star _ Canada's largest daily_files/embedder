@@ -1,0 +1,28 @@
+(function (w) {
+    var fireOnUrlChange = false;
+    var loadedPbIinit = false;
+    var loadPbInit = function() {
+        if (!loadedPbIinit) {
+            !function(p,r,e,s,b,d){p.pbinit||(s=p.pbinit=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+            },s.version='1.0',s.queue=[],b=r.createElement(e),b.async=!0,b.src='https://adserver.pressboard.ca/js/pbinit.js',
+            d=r.getElementsByTagName(e)[0],d.parentNode.insertBefore(b,d))}(w,w.document,'script');
+            loadedPbIinit = true;
+
+            // for infinite scroll, init whenever the url changes
+            var pbCheckUrlChange = function() {
+                if (this.lastPathStr !== location.pathname) {
+                    this.lastPathStr = location.pathname;
+                    loadPbInit();
+                }
+            };
+            if (fireOnUrlChange) {
+                setInterval(pbCheckUrlChange, 500);
+            } else {
+                loadPbInit();
+            }
+        } else {
+            w.pbinit('init', '130507', 'sand-boxed', {"geo":{"GeoNameId":"6065566","Country":"Canada","Region":"Ontario","City":"Maple","ZipCode":"L6A","IsInEu":false,"buildTime":"2018-12-03T15:56:18.000Z"},"uid":"c3f782d3-dce5-45e3-a5c7-10f51aec9622","cookieAge":31536000000});
+        }
+    };
+    loadPbInit();
+})(this);
