@@ -23,5 +23,5 @@ app
 app.start()
 .then(() => {
 	app.annotations.load()
-	$(document.body).load("examples/index.html")
+	$("#test").load("./examples/index.html")
 })
