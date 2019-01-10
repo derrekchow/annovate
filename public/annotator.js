@@ -13526,6 +13526,13 @@
 						.on("click." + NS, '.annotator-cancel', function (e) {
 							self._onCancelClick(e);
 						})
+						.on('mouseleave.' + NS, null, function(e) {
+							self._onCancelClick(e);
+						})
+						.on("click." + NS, '.annotator-tag', function(e) {
+							self.annotation.tags = [e.target.id]
+							self._onSaveClick(e);
+						})
 						.on("mouseover." + NS, '.annotator-cancel', function (e) {
 							self._onCancelMouseover(e);
 						})
@@ -13840,12 +13847,16 @@
 			Editor.template = [
 				'<div class="annotator-outer annotator-editor annotator-hide">',
 				'  <form class="annotator-widget">',
-				'    <ul class="annotator-listing"></ul>',
-				'    <div class="annotator-controls">',
-				'     <a href="#cancel" class="annotator-cancel">' + _t('Cancel') + '</a>',
-				'      <a href="#save"',
-				'         class="annotator-save annotator-focus">' + _t('Save') + '</a>',
+				'    <div class="annotator-tags">',
+				'         <button class="annotator-tag annotator-save" id="Clear">Clear</button>',
+				'         <button class="annotator-tag annotator-save" id="Unclear">Unclear</button>',
+				'         <button class="annotator-tag annotator-save" id="Interesting">Interesting</button>',
 				'    </div>',
+				// '    <div class="annotator-controls">',
+				// '     <a href="#cancel" class="annotator-cancel">' + _t('Cancel') + '</a>',
+				// '      <a href="#save"',
+				// '         class="annotator-save annotator-focus">' + _t('Save') + '</a>',
+				// '    </div>',
 				'  </form>',
 				'</div>'
 			].join('\n');
@@ -15679,7 +15690,7 @@
 			// Configuration options
 			Viewer.options = {
 				// Add the default field(s) to the viewer.
-				defaultFields: true,
+				defaultFields: false,
 
 				// Time, in milliseconds, before the viewer is hidden when a user mouses off
 				// the viewer.

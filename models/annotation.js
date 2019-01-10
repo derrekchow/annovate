@@ -1,4 +1,4 @@
-const db = require('./db')
+//const db = require('./db')
 
 exports.save = (req, cb) => {
 	var sql = "INSERT INTO annotations (pageName, reaction, content) values (" + JSON.stringify(req.pageName) + ", " + JSON.stringify(req.reaction) + ", " + JSON.stringify(req) + ")"
