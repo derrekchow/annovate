@@ -15,13 +15,30 @@ app.get('/', (req, res) => {
 app.route('/api/annotations')
 	.get((req, res) => {
 		console.log("GET request")
-		res.send("GET")
 	})
 	.post((req, res) => {
 		console.log("POST " + req.url)
 		console.log(req.body)
 		res.type("json")
 		res.json({name: "Joe Smith"})
+	})
+
+app.route('/api/search')
+	.get((req, res) => {
+		res.setHeader('Content-Type', 'application/json')
+		res.send(JSON.stringify({
+			"total": 1,
+			"rows": [
+				{ 
+					quote: 'Compared with the vacuum tube',
+					ranges: [ 
+						{ start: '', startOffset: 1642, end: '', endOffset: 1671 } 
+					],
+					text: 'This is SO confusing',
+					tags: [] 
+				}
+			]
+		}))
 	})
 
 app.use(express.static(__dirname + '/public'))
