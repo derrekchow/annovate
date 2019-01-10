@@ -8,6 +8,7 @@ var annotations = {"total": 1,"rows": [annotation]}
 router.post('/api/annotations', (req, res) => {
 	console.log("POST REQUEST: " + req.url)
 	res.type("json")
+	/*
 	try {
 		Annotation.save(req.body, (result) => {
 			console.log("Annotation added to db: " + result)
@@ -17,6 +18,8 @@ router.post('/api/annotations', (req, res) => {
 	catch(err) {
 		console.error(err)
 	}
+	*/
+	res.json(req.body)
 })
 
 router.get('/api/search', (req, res) => {

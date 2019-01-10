@@ -1,0 +1,292 @@
+/* Common Styles of CS Webpages */
+
+a {
+   font-family: Verdana, Geneva, Arial, sans-serif;
+   text-decoration: underline;
+}
+#nav-bar a {
+   text-decoration: none;
+}
+blockquote  { /* JCB */
+   margin-top: 5px; 
+   margin-bottom: 5px; 
+   margin-left: 30px;
+}
+
+body.assignment { /* JCB */
+   font-family: Verdana, Geneva, Arial, sans-serif;
+   font-size: 11pt;
+   color: black;
+   line-height: 15pt; 
+}
+
+dl	{  /* JCB */
+   text-decoration: none;
+   font-family: Verdana, Geneva, Arial, sans-serif;
+   color: black;
+   margin-top: 5px;
+   margin-bottom: 5px;
+}
+
+.correction {  /* JCB */
+   background-color: rgb(216,247,255); 
+}
+
+dd	{ /* JCB */
+   text-decoration: none;
+   font-family: Verdana, Geneva, Arial, sans-serif;
+   color: black;
+   list-style-type : square;
+   margin-top: 5px; /* JCB */
+   margin-bottom: 5px; /* JCB */
+   margin-left: 25px;  /* JCB */ 
+}
+
+ol	{ /* JCB */
+   text-decoration: none;
+   font-family: Verdana, Geneva, Arial, sans-serif;
+   color: black;
+   margin-top: 5px; /* JCB */
+   margin-bottom: 5px; /* JCB */ 
+   list-style-type: decimal; /* TAV */
+}
+
+ol ol { /* TAV */
+   list-style-type: lower-roman;
+}
+
+ol ol ol { /* TAV */
+   list-style-type: lower-alpha;
+}
+ul	{
+   text-decoration: none;
+   font-family: Verdana, Geneva, Arial, sans-serif;
+   color: black;
+   list-style-type : square;
+   margin-top: 5px; /* JCB */
+   margin-bottom: 5px; /* JCB */ 
+}
+
+ul ul { /* TAV */
+   list-style: disc;
+}
+
+ul ul ul { /* TAV */
+   list-style: circle;
+}
+
+li { /* JCB */
+   color: black;
+   margin-top: 5px; 
+   margin-bottom: 5px; 
+}
+
+
+/* The filelist class should be used for a list of files;
+ * for example, files for an assignment, or multiple
+ * versions of a handout
+ */
+
+
+ul.linklist { /* TAV */
+   list-style: none;
+   display: block;
+   padding-left: 0.75em;
+}
+
+ul.linklist li { /* TAV */
+   display: inline;
+   padding-right: 0.75em;
+}
+
+
+
+p { /* JCB */
+   margin-top: 5px;
+   margin-bottom: 5px; 
+}
+
+p.bottomLeadingOnly { /* JCB */
+   margin-top: 0px;
+   margin-bottom: 5px;
+}
+
+p.topLeadingOnly { /* JCB */
+   margin-top: 5pt;
+   margin-bottom: 0px;
+}
+
+.sub { /* JCB */
+   vertical-align: sub; 
+}
+
+td {
+   font-family: Verdana, Geneva, Arial, sans-serif; 
+   font-size: 10pt;
+}
+
+table { 
+   border-spacing: 0pt 0pt;
+}
+
+
+img.border {  /* JCB */
+   border: 1px solid;
+   color: #000000;
+}
+
+h1, h2, h3, h4 {
+   font-weight: bold;
+   font-family: Verdana, Geneva, Arial, sans-serif;
+}
+
+h1 {
+   font-size: 16pt;
+   margin-top: 15px; /* JCB */
+   margin-bottom: 5px; /* JCB */
+}
+
+h2 {
+   font-size: 14pt; 
+   margin-top: 10px; /* JCB */
+   margin-bottom: 5px;  /* JCB */
+}
+
+h3 {
+   font-size: 12pt;
+   margin-top: 19px; /* JCB */
+   margin-bottom: 5px;  /* JCB */
+}
+
+h4 {
+   margin-top: 7px; /* JCB */
+   margin-bottom: 5px;  /* JCB */
+}
+
+P.lastModified { 
+   color: #808080;
+   font-size: 8pt;
+   font-family: Verdana, Geneva, Arial, sans-serif;
+}
+
+pre  { /* JCB */
+   margin-top: 5px; 
+   margin-bottom: 5px; 
+   font-family: Courier;
+}
+
+object { /* TAV */
+   min-height: 45ex;
+   min-width: 100%;
+   border: thin solid #4500D7
+}
+
+code { /* BWB */
+   font-family: Courier;
+}
+
+tt { /* BWB */
+   font-family: Courier;
+}
+
+.author { /* TAV */
+   float: right;
+}
+
+.assign_edit { /* TAV */
+   color : #E30044;
+   font-weight: bold; 
+   border: thin ridge #966;
+   padding: 0.3em;
+}
+
+/* Images take up a maximum amount of real-estate, and float on the right side
+ * of the screen */
+.picstep img {
+   float: right;
+   /* padding-bottom: .5ex;
+   padding-left: 2em; */
+   max-width: 456px; 
+}
+
+/* Subsequent elements (such as list elements) should clear the float so the
+ * image floats in a proper location */
+.picstep > * {
+   clear: right;
+   padding-bottom: .5ex;
+}
+
+/* Add the validator images to the bottom of the screen
+ * and make sure they are flush to the top of their
+ * containing element.
+ */
+.validator { /* TAV */ 
+   padding: 5px;
+   float: right;
+}
+
+.validator img { /* TAV */
+   vertical-align: top;
+}
+
+/* Added since links will be images, and this should
+ * force there not to be an underline placed 
+ * between/under the images themselves.
+ */
+.validator a { /* TAV */
+   text-decoration: none;
+}
+
+#main{
+   border-top: thin ridge #966;
+   border-bottom: thin ridge #966; /* TAV */
+   width: 100%; /* TAV */
+}
+
+#nav-bar {
+   font-family: Verdana, Geneva, Arial, sans-serif;
+   font-size: 9pt;
+   text-align: left;
+
+   /* TAV: Added so the nav-bar can use a proper
+    * list instead of individual paragraphs
+    */
+   list-style: none;
+   margin-left: 0;
+   padding-left: 0.5em;
+}
+
+/* TAV (This allows nicely formatted submenus) */
+#nav-bar ul {
+   list-style: none;
+   margin-left: 0;
+   padding-left: 1.5em;
+}
+
+#nav-box {
+   vertical-align: text-top;
+   border-right: thin ridge #966;
+   padding : 10pt 20pt 10pt 0pt; /* TAV (bottom, right pads) */
+   width: 20%;  /* TAV (remove obsolete HTML) */
+}
+
+#main-box {
+   vertical-align: text-top;
+   padding : 10pt 10pt 10pt 20pt; /* TAV (bottom pad) */
+   width: 80%;  /* TAV (remove obsolete HTML) */
+}
+
+table.bordered {
+	width: 100%;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+
+table.bordered td {
+	border: 2px solid #c0c0c0;
+	padding: 3px;
+}
+
+table.unbordered {
+	border: 0
+}
