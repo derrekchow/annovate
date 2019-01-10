@@ -14,7 +14,6 @@ app.include(annotator.storage.http, {
 
 app
 .include(annotator.ui.main, {
-    editorExtensions: [annotator.ui.tags.editorExtension],
     viewerExtensions: [
         annotator.ui.tags.viewerExtension
     ]
