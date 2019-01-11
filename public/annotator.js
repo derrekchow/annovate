@@ -13601,6 +13601,7 @@
 					var self = this;
 					return new Promise(function (resolve, reject) {
 						self.dfd = { resolve: resolve, reject: reject };
+						position.top -= 20;
 						self.show(position);
 					});
 				},
@@ -14506,7 +14507,6 @@
 					for (var j = 0, jlen = normedRanges.length; j < jlen; j++) {
 						var normed = normedRanges[j];
 						var highlightClass = this.options.highlightClass + " " + annotation.tags[0].toLowerCase()
-						console.log(highlightClass)
 						$.merge(
 							annotation._local.highlights,
 							highlightRange(normed, highlightClass)

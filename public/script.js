@@ -11,7 +11,7 @@ function guid() {
 var pageUri = function () {
     return {
         beforeAnnotationCreated: function (ann) {
-            ann.uri = window.location.href;
+            ann.uri = window.location.pathname.split('/')[2]
         }
     };
 };
@@ -31,10 +31,10 @@ var userId = function () {
 
 var app = new annotator.App();
 
-app.include(annotator.storage.http, {
-	prefix: '/api'
-});
-
+// app.include(annotator.storage.http, {
+// 	prefix: '/api'
+// });
+app.include(annotator.storage.debug);
 app
 .include(annotator.ui.main, {
     viewerExtensions: [
