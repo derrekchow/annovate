@@ -8,39 +8,35 @@ ranges: [ { start: '', startOffset: 197, end: '', endOffset: 221 } ],
 text: '', tags: ['Clear']  }
 var annotations = {"total": 2,"rows": [annotation1, annotation2]}
 
-router.post('/api/annotations', (req, res) => {
+router.post('/api/annotations/', (req, res) => {
 	console.log("POST REQUEST: " + req.url)
 	console.log(req.body)
 	res.type("json")
-	/*
 	try {
 		Annotation.save(req.body, (result) => {
-			console.log("Annotation added to db: " + result)
 			res.json(result)
 		})
 	}
 	catch(err) {
 		console.error(err)
 	}
-	*/
-	res.json(req.body)
 })
 
-router.get('/api/search', (req, res) => {
+router.get('/api/search/:uid', (req, res) => {
 	console.log("GET REQUEST: " + req.url)
 	res.type("json")
-	/*
 	try {
-	Annotation.getAll((result) => {
-		console.log(result)
+	Annotation.get(req.params.uid, (result) => {
 		res.json(result)
 	})
 	}
 	catch(err) {
 		console.error(err)
 	}
-	*/
-	res.json(annotations)
+})
+
+router.put('/api/annotations/:aid', (req, res) => {
+	res.status(204)
 })
 
 module.exports = router
