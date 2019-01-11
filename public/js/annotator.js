@@ -14855,9 +14855,11 @@
 									.css(['top', 'left']);
 
 								app.annotations.update(ann);
+								window.location.reload();
 							},
 							onDelete: function (ann) {
 								app.annotations['delete'](ann);
+								window.location.reload();
 							},
 							permitEdit: function (ann) {
 								return authz.permits('update', ann, ident.who());
