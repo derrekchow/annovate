@@ -12592,7 +12592,13 @@
 			 * :rtype: Promise
 			 */
 			HttpStorage.prototype.create = function (annotation) {
-				annotation.id = annotation.uid + "-" + id();
+				var cache_count = window.localStorage.getItem('count');
+				if(!cache_count){
+					cache_count = 0;
+				}
+				var new_count = cache_count + 1;
+				annotation.id = annotation.uid + "-" + new_count;
+				window.localStorage.setItem('count', `${new_count}`)
 				return this._apiRequest('create', annotation);
 			};
 
@@ -15347,6 +15353,7 @@
 							.on("mouseover." + NS, '.annotator-hl', function (event) {
 								// If there are many overlapping highlights, still only
 								// call _onHighlightMouseover once.
+								var num_annotations = elementsAtLocation(event.clientX, event.clientY).length;
 								if (event.target === this) {
 									self._onHighlightMouseover(event);
 								}
@@ -15437,12 +15444,22 @@
 					this.annotations = annotations || [];
 
 					var list = this.element.find('ul:first').empty();
-
+					var seen = {'clear': false, 'unclear': false, 'interesting': false}
+					var count = {'clear': 0, 'unclear': 0, 'interesting': 0}
 					for (var i = 0, len = this.annotations.length; i < len; i++) {
 						var annotation = this.annotations[i];
-						this._annotationItem(annotation)
+						var type = annotation.tags[0].toLowerCase();
+						count[type] += 1;
+					}
+					for (var i = 0, len = this.annotations.length; i < len; i++) {
+						var annotation = this.annotations[i];
+						var type = annotation.tags[0].toLowerCase();
+						if(!seen[type]){
+							seen[type] = true;
+							this._annotationItem(annotation)
 							.appendTo(list)
 							.data('annotation', annotation);
+						}
 					}
 
 					this.show(position);

@@ -25,6 +25,20 @@ var userId = function () {
     }
 }
 
+function elementsAtLocation (x,y){
+    var stack= [], el;
+    do {
+        el = document.elementFromPoint(x, y);
+        stack.push(el);
+        el.classList.add('pointerEventsNone');
+    }while(el.tagName == 'SPAN');
+
+    // clean up
+    for(var i  = 0; i < stack.length; i += 1)
+        stack[i].classList.remove('pointerEventsNone');
+    return stack;
+}
+
 var app = new annotator.App();
 
 // app.include(annotator.storage.http, {
