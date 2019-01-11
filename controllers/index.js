@@ -8,19 +8,6 @@ ranges: [ { start: '', startOffset: 197, end: '', endOffset: 221 } ],
 text: '', tags: ['Clear']  }
 var annotations = {"total": 2,"rows": [annotation1, annotation2]}
 
-router.post('/api/annotations/', (req, res) => {
-	console.log("POST REQUEST: " + req.url)
-	res.type("json")
-	try {
-		Annotation.save(req.body, (result) => {
-			res.json(result)
-		})
-	}
-	catch(err) {
-		console.error(err)
-	}
-})
-
 router.get('/api/search/', (req, res) => {
 	console.log("GET REQUEST: " + req.url)
 	res.type("json")
@@ -34,9 +21,22 @@ router.get('/api/search/', (req, res) => {
 	}
 })
 
-router.put('/api/annotations/', (req, res) => {
+router.post('/api/annotations/', (req, res) => {
+	console.log("POST REQUEST: " + req.url)
+	res.type("json")
 	try {
-		Annotation.update(req.body, req.query.aid, (result) => {
+		Annotation.save(req.body, "", (result) => {
+			res.json(result)
+		})
+	}
+	catch(err) {
+		console.error(err)
+	}
+})
+
+router.put('/api/annotations/:aid', (req, res) => {
+	try {
+		Annotation.save(req.body, "update", (result) => {
 			res.json(result)
 		})
 	}

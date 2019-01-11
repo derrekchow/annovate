@@ -1,4 +1,4 @@
-// const db = require('./db')
+const db = require('./db')
 
 function createAnnotation(item) {
 	var ann = {}
@@ -11,10 +11,10 @@ function createAnnotation(item) {
 	return ann
 }
 
-exports.save = (ann, cb) => {
-	var sql = "INSERT INTO annotations (page, uid, aid, tag, startOffset, endOffset, quote) VALUES (?, ?, ?, ?, ?, ?, ?)";
+exports.save = (ann, action, cb) => {
+	var sql = "INSERT INTO annotations (page, uid, aid, tag, startOffset, endOffset, quote) VALUES (?, ?, ?, ?, ?, ?, ?)"
 	var values = [
-		"se212",
+		ann.page,
 		ann.uid,
 		ann.id,
 		ann.tags[0],
@@ -22,17 +22,24 @@ exports.save = (ann, cb) => {
 		ann.ranges[0].endOffset,
 		ann.quote
 	]
+	if(action == "update") {
+		sql = "UPDATE annotations SET tag=? WHERE aid=?"
+		values = [
+			ann.tags[0],
+			ann.id
+		]
+	}
+	console.log(ann)
 	db.query(sql, values, (err) => {
 		if(err) throw Error(err)
-		console.log("Added annotation with tag '", ann.tags[0], "' for user", ann.uid)
+		console.log("Added annotation with tag '" + ann.tags[0] + "' from page '" + ann.page + "' for user", ann.uid)
 		cb(ann)
 	})
 }
 
 exports.get = (uid, page, cb) => {
-	if(page == undefined) {
-		page = "se212"
-	}
+	if(page == undefined) page = "index"
+
 	var sql = "SELECT * FROM annotations WHERE page='" + page + "'"
 	if(uid != undefined) {
 		sql += "AND uid='" + uid + "'"
@@ -44,7 +51,12 @@ exports.get = (uid, page, cb) => {
 			data.push(createAnnotation(item))
 		}
 		var result = { "total": rows.length, "rows": data }
-		console.log("Retrieved", data.length, "annotations for user", uid)
+		if(uid == undefined) {
+			console.log("Retrieved", data.length, "annotations from page '" + page + "' for admin")
+		}
+		else {
+			console.log("Retrieved", data.length, "annotations from page '" + page + "' for user", uid)
+		}
 		cb(result) // TODO: contstruct the correct array with annotation objects by fetching from db
 	})
 }
