@@ -43,11 +43,29 @@
 /* Annotator Highlight
 -------------------------------------------------------------------- */
 
-.annotator-hl {
+.annotator-hl, .clear, .unclear, .interesting {
 	background: #FFFF0A;
 	background: rgba(255, 255, 10, 0.3);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4DFFFF0A, endColorstr=#4DFFFF0A)";  /* 0.3 == 4D in MS filters */
 }
+
+.clear {
+	background: rgb(67, 255, 10) !important; 
+	background: rgba(67, 255, 10, 0.3) !important; 
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4DFFFF0A, endColorstr=#4DFFFF0A)";  /* 0.3 == 4D in MS filters */
+	--rgb: 67, 255, 10;
+}
+.unclear {
+	background: rgb(255, 88, 10) !important; 
+	background: rgba(255, 88, 10, 0.3) !important; 
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4DFFFF0A, endColorstr=#4DFFFF0A)";  /* 0.3 == 4D in MS filters */
+}
+.interesting {
+	background: rgb(10, 165, 255) !important;
+	background: rgba(10, 165, 255, 0.3) !important;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4DFFFF0A, endColorstr=#4DFFFF0A)";  /* 0.3 == 4D in MS filters */
+}
+
 
 .annotator-hl-temporary {
 	background: #007CFF;
@@ -694,6 +712,7 @@
 	display: inline-block;
 	padding: 0 8px;
 	margin-bottom: 2px;
+	padding: 10px 8px;
 	line-height: 1.6;
 	font-weight: bold;
 	background-color: rgb(230, 230, 230);
@@ -703,10 +722,10 @@
 	border-radius: 8px;
 }
 
-.annotator-tags .annotator-tag:hover{
-	background-color: rgb(255, 148, 148);
+/* #selectedTag {
+	background-color: rgb(255, 0, 0);
 	color:	rgb(255, 255, 255)
-}
+} */
 
 /* Annotator Filter
 -------------------------------------------------------------------- */
