@@ -40,9 +40,11 @@ app
 
 app.include(pageUri).include(userId);
 
+
 app.start()
 .then(() => {
     var url = window.location.pathname.split('/');
+    console.log("User ID: ", window.localStorage.getItem('userId'));
 
     if(url[3] == "" || url[3] == undefined) {
         if(window.localStorage.getItem('userId') == null) {
@@ -53,7 +55,4 @@ app.start()
     else {
         app.annotations.load({ page: url[2] });
     }
-
-	console.log("User ID: ", window.localStorage.getItem('userId'))
-	$("#test").load("/examples/" + url[2] + "/index.html");
 })
