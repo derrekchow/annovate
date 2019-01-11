@@ -10,7 +10,6 @@ var annotations = {"total": 2,"rows": [annotation1, annotation2]}
 
 router.post('/api/annotations/', (req, res) => {
 	console.log("POST REQUEST: " + req.url)
-	console.log(req.body)
 	res.type("json")
 	try {
 		Annotation.save(req.body, (result) => {
@@ -22,20 +21,28 @@ router.post('/api/annotations/', (req, res) => {
 	}
 })
 
-router.get('/api/search/:uid', (req, res) => {
+router.get('/api/search/', (req, res) => {
 	console.log("GET REQUEST: " + req.url)
 	res.type("json")
 	try {
-	Annotation.get(req.params.uid, (result) => {
-		res.json(result)
-	})
+		Annotation.get(req.query.uid, req.query.page, (result) => {
+			res.json(result)
+		})
 	}
 	catch(err) {
 		console.error(err)
 	}
 })
 
-router.put('/api/annotations/:aid', (req, res) => {
+router.put('/api/annotations/', (req, res) => {
+	try {
+		Annotation.update(req.body, req.query.aid, (result) => {
+			res.json(result)
+		})
+	}
+	catch(err) {
+		console.error(err)
+	}
 	res.status(204)
 })
 
