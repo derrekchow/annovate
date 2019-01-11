@@ -14855,6 +14855,7 @@
 									.css(['top', 'left']);
 
 								app.annotations.update(ann);
+								window.location.reload();
 							},
 							onDelete: function (ann) {
 								app.annotations['delete'](ann);
