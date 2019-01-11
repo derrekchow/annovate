@@ -12,15 +12,15 @@ app.use(require('./controllers'))
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/public/index.html')
+	res.redirect('/page/index')
 })
 
 app.get('/page/:pageName', (req, res) => {
-	res.sendFile(__dirname + '/public/index.html')
+	res.sendFile(__dirname + '/public/examples/' + req.params.pageName + '.html')
 })
 
 app.get('/page/:pageName/admin', (req, res) => {
-	res.sendFile(__dirname + '/public/index.html')
+	res.sendFile(__dirname + '/public/examples/' + req.params.pageName + '.html')
 })
 
 app.listen(port, () => {
