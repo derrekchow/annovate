@@ -13848,9 +13848,9 @@
 				'<div class="annotator-outer annotator-editor annotator-hide">',
 				'  <form class="annotator-widget">',
 				'    <div class="annotator-tags">',
-				'         <button class="annotator-tag annotator-save" id="Clear">Clear</button>',
-				'         <button class="annotator-tag annotator-save" id="Unclear">Unclear</button>',
-				'         <button class="annotator-tag annotator-save" id="Interesting">Interesting</button>',
+				'         <button class="annotator-tag clear" id="Clear">Clear</button>',
+				'         <button class="annotator-tag unclear" id="Unclear">Unclear</button>',
+				'         <button class="annotator-tag interesting" id="Interesting">Interesting</button>',
 				'    </div>',
 				// '    <div class="annotator-controls">',
 				// '     <a href="#cancel" class="annotator-cancel">' + _t('Cancel') + '</a>',
@@ -14501,9 +14501,11 @@
 
 					for (var j = 0, jlen = normedRanges.length; j < jlen; j++) {
 						var normed = normedRanges[j];
+						var highlightClass = this.options.highlightClass + " " + annotation.tags[0].toLowerCase()
+						console.log(highlightClass)
 						$.merge(
 							annotation._local.highlights,
-							highlightRange(normed, this.options.highlightClass)
+							highlightRange(normed, highlightClass)
 						);
 					}
 
@@ -15005,7 +15007,7 @@
 						annotation.tags.length) {
 						field.addClass('annotator-tags').html(function () {
 							return $.map(annotation.tags, function (tag) {
-								return '<span class="annotator-tag">' +
+								return `<button class="annotator-tag ${annotation.tags[0].toLowerCase()}">` +
 									util.escapeHtml(tag) +
 									'</span>';
 							}).join(' ');
