@@ -12592,6 +12592,7 @@
 			 * :rtype: Promise
 			 */
 			HttpStorage.prototype.create = function (annotation) {
+				annotation.id = annotation.uid + "-" + id();
 				return this._apiRequest('create', annotation);
 			};
 
