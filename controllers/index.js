@@ -46,4 +46,17 @@ router.put('/api/annotations/:aid', (req, res) => {
 	res.status(204)
 })
 
+router.delete('/api/annotations/:aid', (req, res) => {
+	try {
+		console.log(req.params.aid)
+		Annotation.delete(req.params.aid, () => {
+			res.status(204)
+		})
+	}
+	catch(err) {
+		console.error(err)
+	}
+	res.status(204)
+})
+
 module.exports = router
