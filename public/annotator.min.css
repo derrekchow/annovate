@@ -921,3 +921,7 @@
 .annotator-hl-filtered {
 	background-color: transparent;
 }
+
+.pointerEventsNone {
+    pointer-events: none;
+}
