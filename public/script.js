@@ -46,6 +46,6 @@ app.include(pageUri).include(userId);
 
 app.start()
 .then(() => {
-	app.annotations.load()
+	app.annotations.load({uid: window.localStorage.getItem('userId')})
 	$("#test").load("./examples/index.html")
 })
