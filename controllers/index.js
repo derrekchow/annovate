@@ -10,6 +10,7 @@ var annotations = {"total": 2,"rows": [annotation1, annotation2]}
 
 router.post('/api/annotations', (req, res) => {
 	console.log("POST REQUEST: " + req.url)
+	console.log(req.body)
 	res.type("json")
 	/*
 	try {
