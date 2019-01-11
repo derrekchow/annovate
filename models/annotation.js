@@ -60,3 +60,16 @@ exports.get = (uid, page, cb) => {
 		cb(result) // TODO: contstruct the correct array with annotation objects by fetching from db
 	})
 }
+
+exports.delete = (aid, cb) => {
+	db.query('DELETE FROM annotations WHERE aid="' + aid + '"', (err) => {
+		if(err) throw Error(err)
+		console.log("Deleted annotation " + aid)
+		cb()
+	})
+}
+
+
+
+
+
