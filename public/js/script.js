@@ -41,11 +41,11 @@ function elementsAtLocation (x,y){
 
 var app = new annotator.App();
 
-// app.include(annotator.storage.http, {
-//     prefix: '/api'
-// });
+ app.include(annotator.storage.http, {
+     prefix: '/api'
+});
 
-app.include(annotator.storage.debug);
+//app.include(annotator.storage.debug);
 
 app.include(annotator.ui.main, {
     viewerExtensions: [
@@ -68,6 +68,11 @@ app.start()
         app.annotations.load({ page: url[2], uid: window.localStorage.getItem('userId') });
     }
     else {
+        var socket = eio()
+        socket.on('message', function(data) {
+            app.annotations.load({ page: url[2] });
+        })
+        console.log(socket)
         app.annotations.load({ page: url[2] });
     }
 })
