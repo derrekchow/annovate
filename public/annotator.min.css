@@ -712,6 +712,7 @@
 
 .annotator-tags {
 	margin-bottom: -2px;
+	margin-left: 30px;
 }
 
 .annotator-tags .annotator-tag {
@@ -727,6 +728,27 @@
 	-o-border-radius: 8px;
 	border-radius: 8px;
 	outline: none;
+}
+
+.viewer-wrapper > .annotator-tag {
+	margin-right: 5px
+}
+
+.annotator-tag-count {
+	display: inline-block;
+}
+
+.viewer-wrapper {
+	width: 100%;
+	overflow: hidden;
+}
+
+.viewer-wrapper > * {
+	margin: 0 30px 0 30px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 /* #selectedTag {
