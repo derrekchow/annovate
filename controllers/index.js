@@ -8,55 +8,60 @@ ranges: [ { start: '', startOffset: 197, end: '', endOffset: 221 } ],
 text: '', tags: ['Clear']  }
 var annotations = {"total": 2,"rows": [annotation1, annotation2]}
 
-router.get('/api/search/', (req, res) => {
-	console.log("GET REQUEST: " + req.url)
-	res.type("json")
-	try {
-		Annotation.get(req.query.uid, req.query.page, (result) => {
-			res.json(result)
-		})
-	}
-	catch(err) {
-		console.error(err)
-	}
-})
+function api(app, io) {
+	app.get('/api/search/', (req, res) => {
+		console.log("GET REQUEST: " + req.url)
+		res.type("json")
+		try {
+			Annotation.get(req.query.uid, req.query.page, (result) => {
+				res.json(result)
+			})
+		}
+		catch(err) {
+			console.error(err)
+		}
+	})
 
-router.post('/api/annotations/', (req, res) => {
-	console.log("POST REQUEST: " + req.url)
-	res.type("json")
-	try {
-		Annotation.save(req.body, "", (result) => {
-			res.json(result)
-		})
-	}
-	catch(err) {
-		console.error(err)
-	}
-})
+	app.post('/api/annotations/', (req, res) => {
+		console.log("POST REQUEST: " + req.url)
+		res.type("json")
+		try {
+			Annotation.save(req.body, "", (result) => {
+				if(io != undefined) {
+					console.log(io)
+				}
+				res.json(result)
+			})
+		}
+		catch(err) {
+			console.error(err)
+		}
+	})
 
-router.put('/api/annotations/:aid', (req, res) => {
-	try {
-		Annotation.save(req.body, "update", (result) => {
-			res.json(result)
-		})
-	}
-	catch(err) {
-		console.error(err)
-	}
-	res.status(204)
-})
+	app.put('/api/annotations/:aid', (req, res) => {
+		try {
+			Annotation.save(req.body, "update", (result) => {
+				res.json(result)
+			})
+		}
+		catch(err) {
+			console.error(err)
+		}
+		res.status(204)
+	})
 
-router.delete('/api/annotations/:aid', (req, res) => {
-	try {
-		console.log(req.params.aid)
-		Annotation.delete(req.params.aid, () => {
-			res.status(204)
-		})
-	}
-	catch(err) {
-		console.error(err)
-	}
-	res.status(204)
-})
+	app.delete('/api/annotations/:aid', (req, res) => {
+		try {
+			console.log(req.params.aid)
+			Annotation.delete(req.params.aid, () => {
+				res.status(204)
+			})
+		}
+		catch(err) {
+			console.error(err)
+		}
+		res.status(204)
+	})
+}
 
-module.exports = router
+module.exports = api

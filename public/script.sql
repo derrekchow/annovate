@@ -1,8 +1,8 @@
 CREATE TABLE annotations (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	page VARCHAR(200),
-	uid VARCHAR(12),
-	aid VARCHAR(15),
+	page VARCHAR(30),
+	uid VARCHAR(15),
+	aid VARCHAR(20),
 	tag VARCHAR(30),
 	startOffset INT,
 	endOffset INT,
