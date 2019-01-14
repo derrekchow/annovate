@@ -41,12 +41,11 @@ function elementsAtLocation (x,y){
 
 var app = new annotator.App();
 
-// app.include(annotator.storage.http, {
-// 	prefix: '/api'
-// });
-app.include(annotator.storage.debug);
-app
-.include(annotator.ui.main, {
+app.include(annotator.storage.http, {
+    prefix: '/api'
+});
+
+app.include(annotator.ui.main, {
     viewerExtensions: [
         annotator.ui.tags.viewerExtension
     ]
@@ -58,9 +57,9 @@ app.include(pageUri).include(userId);
 app.start()
 .then(() => {
     var url = window.location.pathname.split('/');
-    console.log("User ID: ", window.localStorage.getItem('userId'));
 
     if(url[3] == "" || url[3] == undefined) {
+        console.log("User ID: ", window.localStorage.getItem('userId'));
         if(window.localStorage.getItem('userId') == null) {
             window.localStorage.setItem('userId', guid());
         }
