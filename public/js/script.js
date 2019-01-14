@@ -68,11 +68,12 @@ app.start()
         app.annotations.load({ page: url[2], uid: window.localStorage.getItem('userId') });
     }
     else {
-        var socket = eio()
-        socket.on('message', function(data) {
-            app.annotations.load({ page: url[2] });
-        })
+        var socket = io();
         console.log(socket)
+        socket.on('message', function(message) {
+            app.annotations.load({ page: url[2] });
+            console.log("message: ", message)
+        })
         app.annotations.load({ page: url[2] });
     }
 })
