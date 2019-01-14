@@ -29,7 +29,10 @@ app.get('/page/:pageName/admin', (req, res) => {
 		require('./controllers')(app, io)
 		console.log("Socket connected")
 	})
+})
 
+io.on('close', () => {
+	console.log("Socket disconnected")
 })
 
 server.listen(port, () => {

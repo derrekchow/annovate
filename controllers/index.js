@@ -28,7 +28,7 @@ function api(app, io) {
 		try {
 			Annotation.save(req.body, "", (result) => {
 				if(io != undefined) {
-					console.log(io)
+					io.send(req.body)
 				}
 				res.json(result)
 			})
