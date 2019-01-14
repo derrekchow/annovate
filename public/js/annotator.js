@@ -12689,9 +12689,13 @@
 				var url = this._urlFor(action, id);
 				var options = this._apiRequestOptions(action, obj);
 
+				
+
 				var request = $.ajax(url, options);
-				if(action == "update" || action == "destroy"){
-					window.location.reload();
+				if(action != "search"){
+					console.log("event emitted from page `" + url_global[2] + "`")
+					socket.emit('event', url_global[2])
+					//window.location.reload();
 				}
 
 				// Append the id and action to the request object
