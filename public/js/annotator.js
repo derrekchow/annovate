@@ -13614,7 +13614,7 @@
 					var self = this;
 					return new Promise(function (resolve, reject) {
 						self.dfd = { resolve: resolve, reject: reject };
-						position.top -= 20;
+						position.top -= 28;
 						self.show(position);
 					});
 				},
@@ -14848,6 +14848,7 @@
 								if (ranges.length > 0) {
 									var annotation = makeAnnotation(ranges);
 									s.interactionPoint = util.mousePosition(event);
+									s.interactionPoint.top += 23;
 									s.adder.load(annotation, s.interactionPoint);
 								} else {
 									s.adder.hide();
