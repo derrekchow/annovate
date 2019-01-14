@@ -12690,6 +12690,9 @@
 				var options = this._apiRequestOptions(action, obj);
 
 				var request = $.ajax(url, options);
+				if(action == "update" || action == "destroy"){
+					window.location.reload();
+				}
 
 				// Append the id and action to the request object
 				// for use in the error callback.
@@ -14855,11 +14858,9 @@
 									.css(['top', 'left']);
 
 								app.annotations.update(ann);
-								window.location.reload();
 							},
 							onDelete: function (ann) {
 								app.annotations['delete'](ann);
-								window.location.reload();
 							},
 							permitEdit: function (ann) {
 								return authz.permits('update', ann, ident.who());
@@ -15019,9 +15020,9 @@
 						annotation.tags.length) {
 						field.addClass('annotator-tags').html(function () {
 							return $.map(annotation.tags, function (tag) {
-								return `<button class="annotator-tag ${annotation.tags[0].toLowerCase()}">` +
+								return `<div class="viewer-wrapper"><button class="annotator-tag ${annotation.tags[0].toLowerCase()}">` +
 									util.escapeHtml(tag) +
-									'</span>';
+									`</button><span class="annotator-tag-count">${annotation.count[annotation.tags[0].toLowerCase()]}</span></div>`;
 							}).join(' ');
 						});
 					} else {
@@ -15458,9 +15459,11 @@
 						var type = annotation.tags[0].toLowerCase();
 						if(!seen[type]){
 							seen[type] = true;
-							this._annotationItem(annotation)
+							var annotationWithCount = Object.assign({}, annotation);
+							annotationWithCount.count = count;
+							this._annotationItem(annotationWithCount)
 							.appendTo(list)
-							.data('annotation', annotation);
+							.data('annotation', annotationWithCount);
 						}
 					}
 
