@@ -12594,7 +12594,7 @@
 			HttpStorage.prototype.create = function (annotation) {
 				var cache_count = window.localStorage.getItem('count');
 				if(!cache_count){
-					cache_count = 0;
+					cache_count = -1;
 				}
 				var new_count = parseInt(cache_count) + 1;
 				annotation.id = annotation.uid + "-" + new_count;

@@ -41,8 +41,8 @@ function elementsAtLocation (x,y){
 
 var app = new annotator.App();
 
- app.include(annotator.storage.http, {
-     prefix: '/api'
+app.include(annotator.storage.http, {
+      prefix: '/api'
 });
 
 //app.include(annotator.storage.debug);
