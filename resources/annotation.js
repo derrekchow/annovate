@@ -8,6 +8,7 @@ function createAnnotation(item) {
 	ann.ranges = [{ start: item.start, startOffset: item.startOffset, end: item.end, endOffset: item.endOffset }]
 	ann.tags = [ item.tag ]
 	ann.text = ''
+
 	return ann
 }
 
@@ -31,10 +32,12 @@ exports.save = (ann, action, cb) => {
 			ann.id
 		]
 	}
-	console.log(ann)
+
 	db.query(sql, values, (err) => {
 		if(err) throw Error(err)
-		console.log("Added annotation with tag '" + ann.tags[0] + "' from page '" + ann.page + "' for user", ann.uid)
+		
+		console.log(ann)
+		console.log("Added annotation with tag '" + ann.tags[0] + "' from page '" + ann.page + "' for user", ann.uid + '\n')
 		cb(ann)
 	})
 }
@@ -43,29 +46,31 @@ exports.get = (uid, page, cb) => {
 	if(page == undefined) page = "index"
 
 	var sql = "SELECT * FROM annotations WHERE page='" + page + "'"
-	if(uid != undefined) {
-		sql += "AND uid='" + uid + "'"
-	}
+	if(uid != undefined) sql += "AND uid='" + uid + "'"
+
 	db.query(sql, (err, rows) => {
 		if(err) throw Error(err)
+
 		var data = []
 		for (var item of rows) {
 			data.push(createAnnotation(item))
 		}
 		var result = { "total": rows.length, "rows": data }
+		
 		if(uid == undefined) {
-			console.log("Retrieved", data.length, "annotations from page '" + page + "' for admin")
+			console.log("Retrieved", data.length, "annotations from page '" + page + "' for ADMIN")
 		}
 		else {
-			console.log("Retrieved", data.length, "annotations from page '" + page + "' for user", uid)
+			console.log("Retrieved", data.length, "annotations from page '" + page + "' for USER", uid)
 		}
-		cb(result) // TODO: contstruct the correct array with annotation objects by fetching from db
+		cb(result)
 	})
 }
 
 exports.delete = (aid, cb) => {
 	db.query('DELETE FROM annotations WHERE aid="' + aid + '"', (err) => {
 		if(err) throw Error(err)
+
 		console.log("Deleted annotation " + aid)
 		cb()
 	})
