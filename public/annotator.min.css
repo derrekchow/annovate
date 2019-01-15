@@ -148,7 +148,7 @@
 
 .annotator-widget {
 	margin: 0;
-	padding: 0px 5px 3px 0px !important;
+	padding: 1px 3px 3px 3px !important;
 	bottom: 15px;
 	left: -18px;
 	min-width: 0px !important;
