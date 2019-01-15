@@ -1,6 +1,13 @@
 const express = require('express')
 const app = express()
-const server = require('http').Server(app)
+
+const selfSigned = require('openssl-self-signed-certificate')
+
+var options = {
+    key: selfSigned.key,
+    cert: selfSigned.cert
+};
+const server = require('https').Server(options, app)
 const io = require('socket.io')(server)
 
 const bodyParser = require('body-parser')
@@ -43,3 +50,4 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
 	console.log(`Server listening on port ${port}`)
 })
+
