@@ -11,7 +11,7 @@ Annovate is a real-time jQuery-powered collaborative annotation tool which allow
 
 ### Tech
 
-Dillinger uses a number of open source projects to work properly:
+Annotator uses a number of open source projects to work properly:
 
 * [node.js] - evented I/O for the backend
 * [Express] - fast node.js network app framework [@tjholowaychuk]
