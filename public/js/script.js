@@ -1,3 +1,13 @@
+var socket = io();
+var url_global = window.location.pathname.split('/');
+
+socket.on('connect', function() {
+    console.log("Socket connection established")
+})
+socket.on('disconnect', function() {
+    console.log("Socket connection lost")
+})
+
 function guid() {
 	function s4() {
 	  return Math.floor((1 + Math.random()) * 0x10000)
@@ -8,22 +18,14 @@ function guid() {
 }
   
 
-var pageUri = function () {
+var addIds = function () {
     return {
         beforeAnnotationCreated: function (ann) {
             ann.page = window.location.pathname.split('/')[2];
+            ann.uid = window.localStorage.getItem('userId');
         }
     };
 };
-
-var userId = function () {
-    return {
-        beforeAnnotationCreated: function (ann) {
-            var userId = window.localStorage.getItem('userId');
-            ann.uid = userId;
-        }
-    }
-}
 
 function elementsAtLocation (x,y){
     var stack= [], el;
@@ -53,27 +55,24 @@ app.include(annotator.ui.main, {
     ]
 });
 
-app.include(pageUri).include(userId);
+app.include(addIds);
 
 
 app.start()
 .then(() => {
-    var url = window.location.pathname.split('/');
-
-    if(url[3] == "" || url[3] == undefined) {
+    if(url_global[3] == "" || url_global[3] == undefined) {
         console.log("User ID: ", window.localStorage.getItem('userId'));
         if(window.localStorage.getItem('userId') == null) {
             window.localStorage.setItem('userId', guid());
         }
-        app.annotations.load({ page: url[2], uid: window.localStorage.getItem('userId') });
+        app.annotations.load({ page: url_global[2], uid: window.localStorage.getItem('userId') });
     }
     else {
-        var socket = io();
-        console.log(socket)
-        socket.on('message', function(message) {
-            app.annotations.load({ page: url[2] });
-            console.log("message: ", message)
+        socket.on('admin', function() {
+            console.log("New annotation created for room " + url_global[2]);
+            app.annotations.load({ page: url_global[2], action: "loadOne" });
+            //window.location.reload();
         })
-        app.annotations.load({ page: url[2] });
+        app.annotations.load({ page: url_global[2] });
     }
 })
