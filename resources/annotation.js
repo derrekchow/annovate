@@ -58,10 +58,10 @@ exports.get = (uid, page, cb) => {
 		var result = { "total": rows.length, "rows": data }
 		
 		if(uid == undefined) {
-			console.log("Retrieved", data.length, "annotations from page '" + page + "' for ADMIN")
+			console.log("Retrieved", data.length, "annotations from page '" + page + "' for ADMIN" + '\n')
 		}
 		else {
-			console.log("Retrieved", data.length, "annotations from page '" + page + "' for USER", uid)
+			console.log("Retrieved", data.length, "annotations from page '" + page + "' for USER", uid + '\n')
 		}
 		cb(result)
 	})
@@ -71,7 +71,7 @@ exports.delete = (aid, cb) => {
 	db.query('DELETE FROM annotations WHERE aid="' + aid + '"', (err) => {
 		if(err) throw Error(err)
 
-		console.log("Deleted annotation " + aid)
+		console.log("Deleted annotation " + aid + '\n')
 		cb()
 	})
 }
