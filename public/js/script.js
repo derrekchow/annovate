@@ -51,7 +51,7 @@ app.include(annotator.storage.http, {
 
 app.include(annotator.ui.main, {
     viewerExtensions: [
-        annotator.ui.tags.viewerExtension
+        annotator.ui.tags.viewerExtension,
     ]
 });
 
@@ -69,8 +69,20 @@ app.start()
     }
     else {
         socket.on('admin', function() {
-            console.log("New annotation created for room " + url_global[2]);
-            app.annotations.load({ page: url_global[2], action: "loadOne" });
+            console.log("New annotation created for page " + url_global[2]);
+            app.annotations.load({ page: url_global[2] });
+
+            var b = document.getElementsByClassName('annotator-hl');
+
+            while(b.length) {
+                var parent = b[ 0 ].parentNode;
+                while( b[ 0 ].firstChild ) {
+                    parent.insertBefore(  b[ 0 ].firstChild, b[ 0 ] );
+                }
+
+                parent.removeChild( b[ 0 ] );
+            }
+
             //window.location.reload();
         })
         app.annotations.load({ page: url_global[2] });
