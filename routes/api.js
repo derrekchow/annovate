@@ -33,7 +33,6 @@ router.put('/annotations/:aid', (req, res) => {
 	try {
 		Annotation.save(req.body, "update", (result) => {
 			res.json(result)
-			res.status(204)
 		})
 	}
 	catch(err) {
@@ -46,6 +45,7 @@ router.delete('/annotations/:aid', (req, res) => {
 	try {
 		Annotation.delete(req.params.aid, () => {
 			res.status(204)
+			res.send()
 		})
 	}
 	catch(err) {
