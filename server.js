@@ -23,7 +23,7 @@ app.get('/page/:pageName', (req, res, next) => {
 })
 
 app.get('/page/:pageName/admin', (req, res) => {
-	res.sendFile(__dirname + '/public/examples/index.html')
+	res.sendFile(__dirname + '/public/examples/' + req.params.pageName + '.html')
 })
 
 io.on('connection', (socket) => {

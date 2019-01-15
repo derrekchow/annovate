@@ -12693,8 +12693,10 @@
 
 				var request = $.ajax(url, options);
 				if(action != "search"){
-					console.log("event emitted from page `" + url_global[2] + "`")
-					socket.emit('event', url_global[2])
+					console.log("event emitted from page `" + url_global[2] + "`");
+					socket.emit('event', url_global[2]);
+				}
+				if(action == "destroy" || action == "update") {
 					window.location.reload();
 				}
 
