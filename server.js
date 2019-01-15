@@ -29,14 +29,14 @@ app.get('/page/:pageName/admin', (req, res) => {
 io.on('connection', (socket) => {
 	const room = socket.request.headers.referer.split('/')[4]
 	socket.join(room)
-	console.log("Socket connected to room `" + room + "`")
+	console.log("Socket connected to page `" + room + "`")
 	socket.on('event', (page) => {
 		console.log("Emit to page `" + page + "`")
 		io.to(page).emit('admin')
 	}) 
 	socket.on('disconnect', () => {
 		socket.disconnect()
-		console.log("Socket disconnected from room `" + room + "`")
+		console.log("Socket disconnected from page `" + room + "`")
 	})
 })
 

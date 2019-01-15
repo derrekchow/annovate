@@ -12695,7 +12695,7 @@
 				if(action != "search"){
 					console.log("event emitted from page `" + url_global[2] + "`")
 					socket.emit('event', url_global[2])
-					//window.location.reload();
+					window.location.reload();
 				}
 
 				// Append the id and action to the request object

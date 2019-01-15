@@ -15,6 +15,7 @@ router.get('/search/', (req, res) => {
 	}
 })
 
+
 router.post('/annotations/', (req, res) => {
 	console.log("POST REQUEST: " + req.url)
 	res.type("json")
