@@ -1,18 +1,18 @@
-// const db = require('./db')
+const db = require('./db')
 
 function createAnnotation(item) {
 	var ann = {}
 	ann.uid = item.uid
 	ann.id = item.aid
 	ann.quote = item.quote
-	ann.ranges = [{ start: '', startOffset: item.startOffset, end: '', endOffset: item.endOffset }]
+	ann.ranges = [{ start: item.start, startOffset: item.startOffset, end: item.end, endOffset: item.endOffset }]
 	ann.tags = [ item.tag ]
 	ann.text = ''
 	return ann
 }
 
 exports.save = (ann, action, cb) => {
-	var sql = "INSERT INTO annotations (page, uid, aid, tag, startOffset, endOffset, quote) VALUES (?, ?, ?, ?, ?, ?, ?)"
+	var sql = "INSERT INTO annotations (page, uid, aid, tag, startOffset, endOffset, start, end, quote) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 	var values = [
 		ann.page,
 		ann.uid,
@@ -20,6 +20,8 @@ exports.save = (ann, action, cb) => {
 		ann.tags[0],
 		ann.ranges[0].startOffset,
 		ann.ranges[0].endOffset,
+		ann.ranges[0].start,
+		ann.ranges[0].end,
 		ann.quote
 	]
 	if(action == "update") {
