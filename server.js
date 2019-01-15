@@ -3,7 +3,7 @@ const app = express()
 
 const selfSigned = require('openssl-self-signed-certificate')
 const options = { key: selfSigned.key, cert: selfSigned.cert }
-const server = require('https').Server(options, app)
+const server = require('https').Server(app)
 
 const io = require('socket.io')(server)
 const bodyParser = require('body-parser')
