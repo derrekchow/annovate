@@ -13866,7 +13866,7 @@
 				'<div class="annotator-outer annotator-editor annotator-hide">',
 				'  <form class="annotator-widget">',
 				'    <div class="annotator-tags">',
-				'         <button class="annotator-tag clear" id="Clear">Clear</button>',
+				'         <button class="annotator-tag clear" id="Clear">Helpful</button>',
 				'         <button class="annotator-tag unclear" id="Unclear">Unclear</button>',
 				'         <button class="annotator-tag interesting" id="Interesting">Interesting</button>',
 				'    </div>',
@@ -15025,8 +15025,12 @@
 						annotation.tags.length) {
 						field.addClass('annotator-tags').html(function () {
 							return $.map(annotation.tags, function (tag) {
+								var tagString = annotation.tags[0]
+								if (tagString == "Clear"){
+									tagString = "Helpful"
+								}
 								return `<div class="viewer-wrapper tag-${annotation.tags[0].toLowerCase()}"><button class="annotator-tag ${annotation.tags[0].toLowerCase()}">` +
-									util.escapeHtml(tag) + " (" + annotation.count[annotation.tags[0].toLowerCase()] + ")" + "</button>" +
+									util.escapeHtml(tagString) + " (" + annotation.count[annotation.tags[0].toLowerCase()] + ")" + "</button>" +
 									['  <span class="annotator-controls">',
 				'    <button type="button"',
 				'            title="' + _t('Edit') + '"',
