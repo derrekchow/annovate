@@ -6,6 +6,8 @@ CREATE TABLE annotations (
 	tag VARCHAR(30),
 	startOffset INT,
 	endOffset INT,
+	start VARCHAR(200),
+	end VARCHAR(200),
 	quote TEXT
 );
 
