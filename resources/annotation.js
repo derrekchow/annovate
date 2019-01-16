@@ -1,5 +1,6 @@
 const db = require('./db')
 
+// helper function to return an annotation in the proper format for request response
 function createAnnotation(item) {
 	var ann = {}
 	ann.uid = item.uid
@@ -13,6 +14,7 @@ function createAnnotation(item) {
 }
 
 exports.save = (ann, action, cb, err_cb) => {
+	// creates a new annotation
 	var sql = "INSERT INTO annotations (page, uid, aid, tag, startOffset, endOffset, start, end, quote) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 	var values = [
 		ann.page,
@@ -25,7 +27,10 @@ exports.save = (ann, action, cb, err_cb) => {
 		ann.ranges[0].end,
 		ann.quote
 	]
+
+	// if request is a PUT
 	if(action == "update") {
+		// updates an annotation's tag
 		sql = "UPDATE annotations SET tag=? WHERE aid=?"
 		values = [
 			ann.tags[0],
@@ -46,10 +51,14 @@ exports.save = (ann, action, cb, err_cb) => {
 }
 
 exports.get = (uid, page, cb, err_cb) => {
+	// by default, the page is `index`
 	if(page == undefined) page = "index"
 
-	var sql = "SELECT * FROM annotations WHERE page=?"
+	// select all annotations that belong to the page
+	var sql = "SELECT page, uid, aid, tag, startOffset, endOffset, start, end, quote FROM annotations WHERE page=?"
 	var values = [page]
+
+	// if request is made by a user, only get annotations associated with that user for the page
 	if(uid != undefined) {
 		sql += "AND uid=?"
 		values.push(uid)
@@ -62,10 +71,13 @@ exports.get = (uid, page, cb, err_cb) => {
 		else {
 			var data = []
 			for (var item of rows) {
+				// create an array of annotations to return in the request response
 				data.push(createAnnotation(item))
 			}
+			// request response content
 			var result = { "total": rows.length, "rows": data }
 			
+			// if request is made by a page admin
 			if(uid == undefined) {
 				console.log("Retrieved " + data.length + " annotations from page '" + page + "' for ADMIN" + '\n')
 			}
@@ -78,6 +90,7 @@ exports.get = (uid, page, cb, err_cb) => {
 }
 
 exports.delete = (aid, cb, err_cb) => {
+	// deletes an annotation given it's aid
 	db.query('DELETE FROM annotations WHERE aid=?', [aid], (err) => {
 		if(err) {
 			err_cb({ "error": err.code, "error_message": err.sqlMessage })
