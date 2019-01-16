@@ -22,7 +22,7 @@ Annovate is intended to be used as an annotation tool inside D2L Brightspace as 
 ---
 
 ## Installation
-Navigate to `/private/annovate`:
+Navigate to `/private/annovate/` (project root directory):
 ```
 npm install
 ```
