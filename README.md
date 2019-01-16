@@ -4,17 +4,13 @@ A real-time collaborative annotation tool built on top of [Annotator](http://ann
   - Students add categorical annotations as they read course content on the web
   - Professors view all student annotations on a given piece of content at once and can immediatly gauge the class's reception to the content
 
-<br/>
 ---
-<br/>
 
 ![](/annovate/demo/comporg_video.gif)
 ### Left: Student using Annovate on module content
 ### Right: Professor viewing students' annotations in real time
 
-<br/>
 ---
-<br/>
 
 ![](/annovate/demo/tree(prof).png)  |  ![](/annovate/demo/problem_set(prof).png)
 :----------------------------------:|:-------------------------:
