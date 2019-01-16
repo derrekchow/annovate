@@ -47,8 +47,6 @@ app.include(annotator.storage.http, {
        prefix: '/api'
 });
 
-// app.include(annotator.storage.debug);
-
 app.include(annotator.ui.main, {
     viewerExtensions: [
         annotator.ui.tags.viewerExtension,
@@ -56,23 +54,6 @@ app.include(annotator.ui.main, {
 });
 
 app.include(addIds);
-
-var removeHighlights = new Promise(function(resolve, reject) {
-    var b = document.getElementsByClassName('annotator-hl');
-
-    while(b.length) {
-        var parent = b[ 0 ].parentNode;
-        while( b[ 0 ].firstChild ) {
-            parent.insertBefore(  b[ 0 ].firstChild, b[ 0 ] );
-        }
-
-        parent.removeChild( b[ 0 ] );
-        if(!b.length) {
-            resolve()
-        }
-    }
-});
-
 
 app.start()
 .then(() => {
@@ -86,10 +67,17 @@ app.start()
     else {
         socket.on('admin', function() {
             console.log("New annotation created for page " + url_global[2]);
-            removeHighlights.then(function() {
-                app.annotations.load({ page: url_global[2] })
-            })
-            
+            app.annotations.load({ page: url_global[2] })
+            var b = document.getElementsByClassName('annotator-hl');
+
+            while(b.length) {
+                var parent = b[ 0 ].parentNode;
+                while( b[ 0 ].firstChild ) {
+                    parent.insertBefore(  b[ 0 ].firstChild, b[ 0 ] );
+                }
+
+                parent.removeChild( b[ 0 ] );
+            }
 
             //window.location.reload();
         })

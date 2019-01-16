@@ -1,9 +1,8 @@
+require('dotenv').load();
 const express = require('express')
 const app = express()
-
-const selfSigned = require('openssl-self-signed-certificate')
-const options = { key: selfSigned.key, cert: selfSigned.cert }
 const server = require('http').Server(app)
+const port = process.env.PORT
 
 const io = require('socket.io')(server)
 const bodyParser = require('body-parser')
@@ -12,6 +11,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
  	extended: true
 }));
+
+app.get('/js/script.js', (req, res) => {
+	if(process.env.ENABLE_DB == 'true') {
+		res.sendFile(__dirname + '/public/js/script.js')
+	}
+	else {
+		res.sendFile(__dirname + '/public/js/script_nodb.js')
+	}
+})
 
 app.use(express.static('public'))
 app.use('/api', require('./routes/api'))
@@ -41,7 +49,7 @@ io.on('connection', (socket) => {
 	})
 })
 
-server.listen(3000, () => {
-	console.log(`Server listening on port ${3000}`)
+server.listen(port, () => {
+	console.log(`Server listening on localhost:${port}`)
 })
 

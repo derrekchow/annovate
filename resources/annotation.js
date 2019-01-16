@@ -12,7 +12,7 @@ function createAnnotation(item) {
 	return ann
 }
 
-exports.save = (ann, action, cb) => {
+exports.save = (ann, action, cb, err_cb) => {
 	var sql = "INSERT INTO annotations (page, uid, aid, tag, startOffset, endOffset, start, end, quote) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 	var values = [
 		ann.page,
@@ -34,45 +34,58 @@ exports.save = (ann, action, cb) => {
 	}
 
 	db.query(sql, values, (err) => {
-		if(err) throw Error(err)
-		
-		console.log(ann)
-		console.log("Added annotation with tag '" + ann.tags[0] + "' from page '" + ann.page + "' for user", ann.uid + '\n')
-		cb(ann)
+		if(err) {
+			err_cb({ "error": err.code, "error_message": err.sqlMessage })
+		} 
+		else {
+			console.log(ann)
+			console.log("Added annotation with tag '" + ann.tags[0] + "' from page '" + ann.page + "' for user", ann.uid + '\n')
+			cb(ann)
+		}
 	})
 }
 
-exports.get = (uid, page, cb) => {
+exports.get = (uid, page, cb, err_cb) => {
 	if(page == undefined) page = "index"
 
-	var sql = "SELECT * FROM annotations WHERE page='" + page + "'"
-	if(uid != undefined) sql += "AND uid='" + uid + "'"
+	var sql = "SELECT * FROM annotations WHERE page=?"
+	var values = [page]
+	if(uid != undefined) {
+		sql += "AND uid=?"
+		values.push(uid)
+	}
 
-	db.query(sql, (err, rows) => {
-		if(err) throw Error(err)
-
-		var data = []
-		for (var item of rows) {
-			data.push(createAnnotation(item))
-		}
-		var result = { "total": rows.length, "rows": data }
-		
-		if(uid == undefined) {
-			console.log("Retrieved", data.length, "annotations from page '" + page + "' for ADMIN" + '\n')
+	db.query(sql, values, (err, rows) => {
+		if(err) {
+			err_cb({ "error": err.code, "error_message": err.sqlMessage })
 		}
 		else {
-			console.log("Retrieved", data.length, "annotations from page '" + page + "' for USER", uid + '\n')
+			var data = []
+			for (var item of rows) {
+				data.push(createAnnotation(item))
+			}
+			var result = { "total": rows.length, "rows": data }
+			
+			if(uid == undefined) {
+				console.log("Retrieved " + data.length + " annotations from page '" + page + "' for ADMIN" + '\n')
+			}
+			else {
+				console.log("Retrieved " + data.length + " annotations from page '" + page + "' for USER " + uid + '\n')
+			}
+			cb(result)
 		}
-		cb(result)
 	})
 }
 
-exports.delete = (aid, cb) => {
-	db.query('DELETE FROM annotations WHERE aid="' + aid + '"', (err) => {
-		if(err) throw Error(err)
-
-		console.log("Deleted annotation " + aid + '\n')
-		cb()
+exports.delete = (aid, cb, err_cb) => {
+	db.query('DELETE FROM annotations WHERE aid=?', [aid], (err) => {
+		if(err) {
+			err_cb({ "error": err.code, "error_message": err.sqlMessage })
+		}
+		else {
+			console.log("Deleted annotation " + aid + '\n')
+			cb()
+		}
 	})
 }
 
