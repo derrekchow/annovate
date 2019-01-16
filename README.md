@@ -1,5 +1,5 @@
 # Annovate ✍️ 💻 ✍️
-A real-time collaborative annotation tool built on top of [Annotator](http://annotatorjs.org/). Allows students to provide instant feedback to their professor on course content on the web through the use of annotations.
+A real-time collaborative annotation tool built on top of [Annotator]. Allows students to provide instant feedback to their professor on course content on the web through the use of annotations.
 
   - Students add categorical annotations as they read course content on the web
   - Professors view all student annotations on a given piece of content at once and can immediatly gauge the class's reception to the content
@@ -53,14 +53,22 @@ Server listening on localhost:3000
 ## Built with
 * [Node.js] (server)
 * [Express] (routing framework)
-* [Annotate] (JS annotation library)
+* [Annotator] (JS annotation library)
 * [MySQL] (database)
 * [Socket.IO] (real-time client/sever communication)
 * [jQuery]
 
 ## Authors
-* [Mattew Bonnell](https://github.com/mattbonnell) - Software Developer Co-op
+* [Matt Bonnell](https://github.com/mattbonnell) - Software Developer Co-op
 * [Derrek Chow](https://github.com/derrekchow) - Software Developer Co-op
 
 ## License
 See the [LICENSE](/annovate/LICENSE) file for details
+
+[Node.js](https://nodejs.org/en/)
+[Express](https://expressjs.com/)
+[Annotator](http://annotatorjs.org/)
+[MySQL](https://www.mysql.com/)
+[Socket.IO](https://socket.io/)
+[jQuery](https://jquery.com/)
+
