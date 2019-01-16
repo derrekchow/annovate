@@ -17,7 +17,7 @@ A real-time collaborative annotation tool built on top of [Annotator](http://ann
 ![](/annovate/demo/tree(prof).png)  |  ![](/annovate/demo/problem_set(prof).png)
 :----------------------------------:|:-------------------------:
 
-Annovate is intended to be used as an annotation tool inside D2L Brightspace as a way for users to interact with any module content, but can be used on any HTML document.
+Annovate is intended to be used as an annotation tool inside D2L Brightspace as a way for users to prvoide feedback to their professors on module content, but can be used on any HTML document.
 
 ---
 
