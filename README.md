@@ -16,7 +16,7 @@ On the left, a student using Annovate on module content. On the right, a profess
 ![](/annovate/demo/tree(prof).png)  |  ![](/annovate/demo/problem_set(prof).png)
 :----------------------------------:|:-------------------------:
 
-Annovate is intended to be used as an annotation tool inside D2L Brightspace as a way for users to prvoide feedback to their professors on module content, but can be used on any HTML document.
+Annovate is intended to be used as an annotation tool inside D2L Brightspace as a way for users to provide feedback to their professors on module content, but can be used on any HTML document.
 
 ---
 
