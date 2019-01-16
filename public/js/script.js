@@ -1,6 +1,7 @@
 var socket = io();
 var url_global = window.location.pathname.split('/');
 
+// client establishes WebSocket connection with the server
 socket.on('connect', function() {
     console.log("Socket connection established")
 })
@@ -8,6 +9,7 @@ socket.on('disconnect', function() {
     console.log("Socket connection lost")
 })
 
+// generates a random id for the user
 function guid() {
 	function s4() {
 	  return Math.floor((1 + Math.random()) * 0x10000)
@@ -17,7 +19,7 @@ function guid() {
 	return s4() + s4() + s4();
 }
   
-
+// before an annotation is sent to the server, add the page and uid to the annotation to be sent
 var addIds = function () {
     return {
         beforeAnnotationCreated: function (ann) {
@@ -41,22 +43,22 @@ function elementsAtLocation (x,y){
     return stack;
 }
 
+// initialize Annotator and include extenstions
 var app = new annotator.App();
-
 app.include(annotator.storage.http, {
        prefix: '/api'
 });
-
 app.include(annotator.ui.main, {
     viewerExtensions: [
         annotator.ui.tags.viewerExtension,
     ]
 });
-
 app.include(addIds);
 
+// on app start
 app.start()
 .then(() => {
+    // if student
     if(url_global[3] == "" || url_global[3] == undefined) {
         console.log("User ID: ", window.localStorage.getItem('userId'));
         if(window.localStorage.getItem('userId') == null) {
@@ -64,12 +66,14 @@ app.start()
         }
         app.annotations.load({ page: url_global[2], uid: window.localStorage.getItem('userId') });
     }
-    else {
+    else { // if admin
+        // if a change has been made by a user on the page
         socket.on('admin', function() {
             console.log("New annotation created for page " + url_global[2]);
             app.annotations.load({ page: url_global[2] })
+            
+            // remove highlights before reloading
             var b = document.getElementsByClassName('annotator-hl');
-
             while(b.length) {
                 var parent = b[ 0 ].parentNode;
                 while( b[ 0 ].firstChild ) {
@@ -78,8 +82,6 @@ app.start()
 
                 parent.removeChild( b[ 0 ] );
             }
-
-            //window.location.reload();
         })
         app.annotations.load({ page: url_global[2] });
     }

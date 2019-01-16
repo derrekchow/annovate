@@ -20,16 +20,18 @@ CREATE TABLE annotations (
 3. Modify the database connection configs below accordingly
 */
 
-if(process.env.ENABLE_DB == 'true') {
-	const mysql = require('mysql')
+const mysql = require('mysql')
+module.exports = {}
 
+// if db is enabled
+if(process.env.ENABLE_DB == 'true') {
 	// modify these configs accordingly
 	const connection = mysql.createConnection({
 		host: 'localhost',
 		database: 'db',
 		user: 'root',
 		password: 'password'
-	});
+	})
 
 	connection.connect((err) => {
 		if(err) throw Error(err)
@@ -37,7 +39,4 @@ if(process.env.ENABLE_DB == 'true') {
 	})
 
 	module.exports = connection
-}
-else {
-	module.exports = {}
 }
