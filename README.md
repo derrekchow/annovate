@@ -5,16 +5,21 @@ A real-time collaborative annotation tool built on top of [Annotator](http://ann
   - Professors view all student annotations on a given piece of content at once and can immediatly gauge the class's reception to the content
 
 ---
+<br/>
 
 ![](/annovate/demo/comporg_video.gif)
 ### Left: Student using Annovate on module content
 ### Right: Professor viewing students' annotations in real time
 
 ---
+<br/>
 
 ![](/annovate/demo/tree(prof).png)  |  ![](/annovate/demo/problem_set(prof).png)
 :----------------------------------:|:-------------------------:
+
 Annovate is intended to be used as a annotation tool inside D2L Brightspace as a way for users to interact with any module content
+
+---
 
 ## Installation
 Navigate to `/private/annovate`:
