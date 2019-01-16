@@ -7,8 +7,8 @@
     "start": "node server.js",
     "nodb": "ENABLE_DB=false node server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "authors": ["Derrek Chow", "Matthew Bonnell"],
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
