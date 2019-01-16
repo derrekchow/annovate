@@ -65,8 +65,8 @@ Server listening on localhost:3000
 ## License
 See the [LICENSE](/annovate/LICENSE) file for details
 
-[Node.js](https://nodejs.org/en/)
-[Express](https://expressjs.com/)
+[Node.js]: <https://nodejs.org/en/>
+[Express]: <https://expressjs.com/>
 [Annotator](http://annotatorjs.org/)
 [MySQL](https://www.mysql.com/)
 [Socket.IO](https://socket.io/)
