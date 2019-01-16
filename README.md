@@ -8,7 +8,7 @@ A real-time collaborative annotation tool built on top of [Annotator]. Allows st
 <br/>
 
 ![](/annovate/demo/comporg_video.gif)
-# Left: Student using Annovate on module content Right: Professor viewing students' annotations in real time
+Left: Student using Annovate on module content Right: Professor viewing students' annotations in real time
 
 ---
 <br/>
