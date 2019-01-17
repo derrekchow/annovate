@@ -1,8 +1,8 @@
 # Annovate ✍️ 💻 ✍️
 A real-time collaborative annotation tool built on top of [Annotator]. Allows students to provide instant feedback to their professor on course content on the web through the use of annotations.
 
-  - Students add categorical annotations as they read course content on the web
-  - Professors view all student annotations on a given piece of content at once and can immediatly gauge the class's reception to the content
+  - Students add categorical annotations as they read course content (lecture slides, notes, assignments, etc) on the web
+  - Professors view all student annotations on a given piece of content at once and can immediatly gauge the class's reception of the content
 
 ---
 <br/>

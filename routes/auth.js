@@ -16,12 +16,8 @@ var cookieName = "application-data-api-demo",
     secure: process.env.NODE_ENV === 'production'
 }
 
-/*
-	method:   POST
-	route:    /auth/lti
-*/
 // launch point for LTI remote plugin in Brightspace
-router.post('/lti', (req, res) => {
+router.post('/login', (req, res) => {
 
 	// Authorization Request: https://tools.ietf.org/html/rfc6749#section-4.1.1
 	var authCodeParams = querystring.stringify({
