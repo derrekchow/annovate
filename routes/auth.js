@@ -1,17 +1,16 @@
 const express = require('express')
 const router = express.Router()
-var cookieParser = require('cookie-parser')
 
-var querystring = require('querystring')
-var request = require('superagent')
+const querystring = require('querystring')
+const request = require('superagent')
 
-var authService = process.env.AUTH_SITE || "https://auth.brightspace.com"
-var authCodeEndpoint = authService + "/oauth2/auth"
-var tokenEndpoint = authService + "/core/connect/token"
-var getRedirectUri = function(req) { return req.protocol + "://" + req.headers.host + "/callback" }
+const authService = process.env.AUTH_SITE || "https://auth.brightspace.com"
+const authCodeEndpoint = authService + "/oauth2/auth"
+const tokenEndpoint = authService + "/core/connect/token"
+const getRedirectUri = function(req) { return "https://" + req.headers.host + "/auth/callback" }
 
-var cookieName = "application-data-api-demo",
-    cookieOptions = {
+const cookieName = "application-data-api-demo"
+const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production'
 }
@@ -61,15 +60,13 @@ router.get('/callback', function(req, res) {
                 res.cookie(cookieName, { accessToken: postResponse.body.access_token }, cookieOptions)
 
                 // Optionally, store the refresh token (postResponse.body.refresh_token) to a user context (https://tools.ietf.org/html/rfc6749#section-6)
-
-                res.redirect('/data')
+                res.redirect('/auth/data')
             }
         })
 })
 
 router.get('/data', function(req, res) {
-    var access_token = req.cookies[cookieName].accessToken
-
+	var access_token = req.cookies[cookieName].accessToken
     request
         .get(process.env.HOST_URL + '/d2l/api/lp/1.10/users/whoami')
         .set('Authorization', `Bearer ${access_token}`)
@@ -79,8 +76,7 @@ router.get('/data', function(req, res) {
                 console.log(errorMessage)
                 res.send(`<pre>${errorMessage}</pre>`)
             } else {
-                var locals = { data: JSON.stringify(JSON.parse(response.text || '{}'), null, 2) }
-                res.render('data', locals)
+                res.json(response.text)
             }
         })
 })

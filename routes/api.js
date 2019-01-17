@@ -83,7 +83,7 @@ router.get('/search/:uid?', (req, res) => {
 	 "text":""
 	}
 */
-router.post('/annotations/', (req, res) => {
+router.post('/annotations', (req, res) => {
 	console.log("POST REQUEST: " + req.url)
 	Annotation.save(req.body, "", (result) => {
 		res.type("json")

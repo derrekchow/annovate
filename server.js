@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(require('cookie-parser')())
 
 // serve different files depending on if db is enabled
 app.get('/js/script.js', (req, res) => {
@@ -32,7 +33,13 @@ app.use('/auth', require('./routes/auth'))
 
 // send pages based on window url
 app.get('/', (req, res) => {
-	res.redirect('/page/index')
+	var access_token = req.cookies['user'].accessToken
+	if(access_token == undefined) {
+		res.redirect('/auth/login')
+	}
+	else {
+		res.redirect('/page/index')
+	}
 })
 app.get('/page/:pageName', (req, res) => {
 	res.sendFile(__dirname + '/public/examples/' + req.params.pageName + '.html')
