@@ -3,16 +3,14 @@ const express = require('express')
 const app = express()
 // HTTP server
 const server = require('http').Server(app)
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 
 // Socket.IO
 const io = require('socket.io')(server)
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
- 	extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // serve different files depending on if db is enabled
 app.get('/js/script.js', (req, res) => {
@@ -29,6 +27,8 @@ app.use(express.static('public'))
 
 // establish routes to api to be called during annotation events
 app.use('/api', require('./routes/api'))
+// handle user authentication
+app.use('/auth', require('./routes/auth'))
 
 // send pages based on window url
 app.get('/', (req, res) => {
