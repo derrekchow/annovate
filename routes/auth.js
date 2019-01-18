@@ -23,7 +23,7 @@ router.post('/login', (req, res) => {
 	    response_type: "code",
 	    redirect_uri: getRedirectUri(req),
 	    client_id: process.env.CLIENT_ID,
-	    scope: "core:*:*",
+	    scope: process.env.SCOPE,
 	    // Generate a secure state in production to prevent CSRF (https://tools.ietf.org/html/rfc6749#section-10.12)
 	    state: "f4c269a0-4a69-43c1-9405-86209c896fa0"
 	})
@@ -58,9 +58,9 @@ router.get('/callback', function(req, res) {
                 // Access Token Response: https://tools.ietf.org/html/rfc6749#section-4.1.4
                 // We are storing the access token in a cookie for simplicity, but the user agent should never have to see it
                 res.cookie(cookieName, { accessToken: postResponse.body.access_token }, cookieOptions)
-
+                console.log(postResponse.body.access_token)
                 // Optionally, store the refresh token (postResponse.body.refresh_token) to a user context (https://tools.ietf.org/html/rfc6749#section-6)
-                res.redirect('/auth/data')
+                res.redirect('/')
             }
         })
 })

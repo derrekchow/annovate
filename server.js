@@ -4,10 +4,12 @@ const app = express()
 // HTTP server
 const server = require('http').Server(app)
 const port = process.env.PORT || 3000
+const cookieName = "application-data-api-demo"
 
 // Socket.IO
 const io = require('socket.io')(server)
 const bodyParser = require('body-parser')
+const fs = require('fs');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -33,12 +35,21 @@ app.use('/auth', require('./routes/auth'))
 
 // send pages based on window url
 app.get('/', (req, res) => {
-	var access_token = req.cookies['user'].accessToken
-	if(access_token == undefined) {
+	var cookie = req.cookies[cookieName]
+	if(cookie == undefined || cookie.accessToken == undefined) {
 		res.redirect('/auth/login')
 	}
 	else {
-		res.redirect('/page/index')
+		var html = "<!DOCTYPE html><html><body>"
+		fs.readdir('./public/examples', (err, files) => {
+			for(var file of files) {
+				if(file != ".DS_Store") {
+					html += "<a class='d2l-btn' href='./page/" + file.replace(".html", "") + "'><br/>" + file + "</a>"
+				}
+			}
+			html += "</body></html>"
+			res.send(html)
+		})
 	}
 })
 app.get('/page/:pageName', (req, res) => {

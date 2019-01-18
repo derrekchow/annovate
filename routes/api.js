@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Annotation = require('../resources/annotation')
 
-
 /*
 	method:   GET
 	route:    /api/search?uid=<uid> OR /api/search
