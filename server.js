@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 		fs.readdir('./public/examples', (err, files) => {
 			for(var file of files) {
 				if(file != '.DS_Store') {
-					html += "<a class='d2l-btn' href='" + SERVER_URL + "/createQuicklink/" + file.replace(".html", "") + "'>" + file.replace(".html", "") + "</a>"
+					html += "<a class='d2l-btn' href='" + process.env.SERVER_URL + "/createQuicklink/" + file.replace(".html", "") + "'>" + file.replace(".html", "") + "</a>"
 				}
 			}
 			html += "</body><style>.d2l-btn { background-color: #f9fafb; border-color: #d3d9e3; font-family: Lato,'Lucida Sans Unicode','Lucida Grande',sans-serif; border-radius: 0.3rem; border-style: solid; border-width: 1px; box-sizing: border-box; cursor: pointer; display: block; margin-top: 1rem; min-height: calc(2rem + 2px); outline: none; text-align: center; transition: 0.2s; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; vertical-align: middle !important; white-space: nowrap; width: 100%; position: relative; color: #006fbf !important; padding: 1rem; text-decoration: none; } .d2l-btn:hover { background-color:#e6eaf0; text-decoration: underline; }</style></html>"
