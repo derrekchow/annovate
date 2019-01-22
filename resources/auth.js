@@ -15,7 +15,6 @@ exports.getToken = (req, cb) => {
 	    scope: 			SCOPE,
 	    state: 			"f4c269a0-4a69-43c1-9405-86209c896fa0"
 	})
-
 	cb(authCodeEndpoint + "?" + authCodeParams)
 }
 
