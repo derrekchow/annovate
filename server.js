@@ -28,7 +28,6 @@ app.get('/js/script.js', (req, res) => {
 
 // serve static files from the /annovate/public folder
 app.use(express.static('public'))
-
 // establish routes to api to be called during annotation events
 app.use('/api', require('./routes/api'))
 // handle user authentication
