@@ -64,21 +64,12 @@ app.get('/createQuicklink/:pageName', (req, res) => {
 app.post('/page/:pageName', (req, res) => {
 	var is_admin = ( req.body['roles'].search('urn:lti:instrole:ims/lis/Instructor') !== -1 ||
         req.body['roles'].search('urn:lti:instrole:ims/lis/Administrator') !== -1 )
-	
-	Lti.validate(req, (result) => {
-		if(result === true) {
-			if(is_admin) {
-				res.redirect('/page/' + req.params['pageName'] + "/admin")
-			} else {
-				res.redirect('/page/' + req.params['pageName'])
-			}
-		}
-		else {
-			console.log("Unable to validate: " + result)
-			res.send(422)
-		}
-	})
-	
+	if(is_admin) {
+		res.redirect('/page/' + req.params['pageName'] + "/admin")
+	} else {
+		res.redirect('/page/' + req.params['pageName'])
+	}
+
 })
 
 // create WebSocket connection between server and client

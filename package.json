@@ -18,7 +18,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "ims-lti": "^3.0.2",
-    "mysql": "^2.16.0",
+    "pg": "^7.8.0",
     "querystring": "^0.2.0",
     "socket.io": "^2.2.0",
     "superagent": "^4.1.0"

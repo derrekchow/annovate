@@ -54,6 +54,7 @@ router.get('/search/:uid?', (req, res) => {
 		res.json(result)
 	}, (err) => {
 		res.status(400)
+		console.log(err)
 		res.send(err)
 	})
 })
@@ -89,6 +90,7 @@ router.post('/annotations', (req, res) => {
 		res.json(result)
 	}, (err) => {
 		res.status(400)
+		console.log(err)
 		res.send(err)
 	})
 })
@@ -123,6 +125,7 @@ router.put('/annotations/:aid', (req, res) => {
 		res.json(result)
 	}, (err) => {
 		res.status(400)
+		console.log(err)
 		res.send()
 	})
 })
@@ -139,6 +142,7 @@ router.delete('/annotations/:aid', (req, res) => {
 		res.send()
 	}, (err) => {
 		res.status(400)
+		console.log(err)
 		res.send()
 	})
 })
