@@ -10,15 +10,8 @@ const cookieName = 'application-data-api'
 
 // launch point for LTI remote plugin in Brightspace
 router.post('/login', (req, res) => {
-	Lti.validate(req, (result) => {
-		if(result === true) {
-			Auth.getToken(req, (oauth_login_url) => {
-				res.redirect(oauth_login_url)
-			})
-		}
-		else {
-			console.log("Unable to validate LTI: " + result)
-		}
+	Auth.getToken(req, (oauth_login_url) => {
+		res.redirect(oauth_login_url)
 	})
 })
 
