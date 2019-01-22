@@ -1,10 +1,11 @@
 require('dotenv').load();
 const express = require('express')
 const app = express()
-// HTTP server
+const Lti = require('./resources/lti')
+
 const server = require('http').Server(app)
 const port = process.env.PORT || 3000
-const cookieName = "application-data-api-demo"
+const cookieName = 'application-data-api'
 
 // Socket.IO
 const io = require('socket.io')(server)
@@ -43,27 +44,49 @@ app.get('/', (req, res) => {
 		var html = "<!DOCTYPE html><html><body>"
 		fs.readdir('./public/examples', (err, files) => {
 			for(var file of files) {
-				if(file != ".DS_Store") {
-					html += "<a class='d2l-btn' href='./page/" + file.replace(".html", "") + "'><br/>" + file + "</a>"
+				if(file != '.DS_Store') {
+					html += "<a class='d2l-btn' href='https://annovate.localtunnel.me/createQuicklink/" + file.replace(".html", "") + "'>" + file.replace(".html", "") + "</a>"
 				}
 			}
-			html += "</body></html>"
+			html += "</body><style>.d2l-btn { background-color: #f9fafb; border-color: #d3d9e3; font-family: Lato,'Lucida Sans Unicode','Lucida Grande',sans-serif; border-radius: 0.3rem; border-style: solid; border-width: 1px; box-sizing: border-box; cursor: pointer; display: block; margin-top: 1rem; min-height: calc(2rem + 2px); outline: none; text-align: center; transition: 0.2s; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; vertical-align: middle !important; white-space: nowrap; width: 100%; position: relative; color: #006fbf !important; padding: 1rem; text-decoration: none; } .d2l-btn:hover { background-color:#e6eaf0; text-decoration: underline; }</style></html>"
 			res.send(html)
 		})
 	}
 })
-app.get('/page/:pageName', (req, res) => {
+app.get(['/page/:pageName', '/page/:pageName/admin'], (req, res) => {
 	res.sendFile(__dirname + '/public/examples/' + req.params.pageName + '.html')
 })
-app.get('/page/:pageName/admin', (req, res) => {
-	res.sendFile(__dirname + '/public/examples/' + req.params.pageName + '.html')
+app.get('/createQuicklink/:pageName', (req, res) => {
+	Lti.createQuicklink(req, (lti_url) => {
+		console.log("Quicklink created for page " + req.params['pageName'])
+		res.redirect(lti_url)
+	})
+})
+app.post('/page/:pageName', (req, res) => {
+	var is_admin = ( req.body['roles'].search('urn:lti:instrole:ims/lis/Instructor') !== -1 ||
+        req.body['roles'].search('urn:lti:instrole:ims/lis/Administrator') !== -1 )
+	
+	Lti.validate(req, (result) => {
+		if(result === true) {
+			if(is_admin) {
+				res.redirect('/page/' + req.params['pageName'] + "/admin")
+			} else {
+				res.redirect('/page/' + req.params['pageName'])
+			}
+		}
+		else {
+			console.log("Unable to validate: " + result)
+			res.send(422)
+		}
+	})
+	
 })
 
 // create WebSocket connection between server and client
 io.on('connection', (socket) => {
 	const page = socket.request.headers.referer.split('/')[4]
 	socket.join(page)
-	console.log("Socket CONNECTED from page `" + page + "`" + '\n')
+	console.log('Socket CONNECTED from page `' + page + '`' + '\n')
 
 	// when a change has been made on a page by a user
 	socket.on('event', (page) => {
@@ -73,7 +96,7 @@ io.on('connection', (socket) => {
 
 	socket.on('disconnect', () => {
 		socket.disconnect()
-		console.log("Socket DISCONNECTED from page `" + page + "`" + '\n')
+		console.log('Socket DISCONNECTED from page `' + page + '`' + '\n')
 	})
 })
 

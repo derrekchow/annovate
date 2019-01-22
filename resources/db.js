@@ -6,9 +6,9 @@ Connect Annovate to a MySQL database
 ```
 CREATE TABLE annotations (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	page VARCHAR(30),
-	uid VARCHAR(15),
-	aid VARCHAR(20),
+	page VARCHAR(200),
+	uid VARCHAR(30),
+	aid VARCHAR(30),
 	tag VARCHAR(30),
 	startOffset INT,
 	endOffset INT,
