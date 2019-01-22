@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "nodb": "ENABLE_DB=false node server.js"
+    "start": "nodemon server.js",
+    "nodb": "ENABLE_DB=false nodemon server.js"
   },
   "authors": [
     "Derrek Chow",
@@ -18,6 +18,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "ims-lti": "^3.0.2",
+    "nodemon": "^1.18.9",
     "pg": "^7.8.0",
     "querystring": "^0.2.0",
     "socket.io": "^2.2.0",
