@@ -7,14 +7,14 @@ A real-time collaborative annotation tool built on top of [Annotator]. Allows st
 ---
 <br/>
 
-![](/annovate/demo/comporg_video.gif)
+![](./demo/comporg_video.gif)
 <br/>
 **On the left, a student using Annovate on module content. On the right, a professor viewing students' annotations in real time.**
 
 ---
 <br/>
 
-![](/annovate/demo/tree(prof).png)  |  ![](/annovate/demo/problem_set(prof).png)
+![](./demo/tree(prof).png)  |  ![](./demo/problem_set(prof).png)
 :----------------------------------:|:-------------------------:
 
 Annovate is intended to be used as an annotation tool inside D2L Brightspace as a way for users to provide feedback to their professors on module content, but can be used on any HTML document.
