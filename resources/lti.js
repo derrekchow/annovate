@@ -3,7 +3,7 @@ const querystring = require('querystring')
 const request = require('superagent')
 const Auth = require('./auth')
 
-const { HOST_URL, CLIENT_ID, CLIENT_SECRET, LTI_KEY, LTI_SECRET } = process.env
+const { HOST_URL, CLIENT_ID, CLIENT_SECRET, LTI_KEY, LTI_SECRET, SERVER_URL } = process.env
 const nonceStore = new lti.Stores.MemoryStore();
 const cookieName = 'application-data-api'
 const provider = new lti.Provider(LTI_KEY, LTI_SECRET, nonceStore)
@@ -14,7 +14,7 @@ exports.createQuicklink = (req, cb) => {
 	var access_token = req.cookies[cookieName].accessToken
 	var body = {
 	    "Title": 				req.params['pageName'],
-	    "Url": 					"https://annovate.localtunnel.me/page/" + req.params['pageName'],
+	    "Url": 					SERVER_URL + "/page/" + req.params['pageName'],
 	    "Description": 			"",
 	    "Key": 					CLIENT_ID,
 	    "PlainSecret": 			CLIENT_SECRET,
